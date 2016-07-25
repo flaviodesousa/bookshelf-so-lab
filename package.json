@@ -1,10 +1,10 @@
 {
   "name": "bookshelf-relations",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "lab for stackoverflow questions and answers",
+  "main": "sample.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +14,9 @@
     "knex": "^0.9.0",
     "lodash": "^4.13.1",
     "sqlite3": "^3.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
   }
 }
