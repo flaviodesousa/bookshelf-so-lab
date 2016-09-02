@@ -63,5 +63,5 @@ then(function (x) {
 console.log('--------------------------');
 Application.fetchAll({withRelated:['applicant_ratings']}).
 then(function (x) {
-    console.log(x.toJSON());
+    console.dir(x.toJSON());
 });
