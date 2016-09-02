@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "lab for stackoverflow questions and answers",
   "main": "sample.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:flaviodesousa/bookshelf-so-lab.git"
+  },
   "scripts": {
     "test": "mocha"
   },
