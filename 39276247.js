@@ -53,15 +53,16 @@ var Rating = bookshelf.Model.extend({
 bookshelf.model('Rating', Rating);
 
 console.log('--------------------------');
+var result;
 Application.
 fetchAll({withRelated: [
     'user','user.skills','user.skills.ratings']}).
 then(function (x) {
-    console.log(x.toJSON());
+    result = x;
 });
 
 console.log('--------------------------');
 Application.fetchAll({withRelated:['applicant_ratings']}).
 then(function (x) {
-    console.dir(x.toJSON());
+    result = x;
 });
