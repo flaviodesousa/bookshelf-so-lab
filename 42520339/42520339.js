@@ -2,12 +2,13 @@
 
 // create table gods("id" integer not null primary key autoincrement, apikey text);
 
+const debug = require('debug')('42520339');
 const God = require('./god.model');
 
 var validate_key_secret = function validade_key_secret_fn(key, secret, callback) {
-    console.log('validade_key_secret_fn');
-    console.dir(God);
-    console.log('--------------');
+    debug('validade_key_secret_fn');
+    debug("God=%O", God);
+    debug('--------------');
 
     God.where({apikey: key}).fetch().then(function validate_key_secret_then(result){
         if(result.attributes.apisecret === secret) {
@@ -19,6 +20,6 @@ var validate_key_secret = function validade_key_secret_fn(key, secret, callback)
 };
 
 validate_key_secret('a', 'b', function validate_key_secret_callback(x) {
-  console.log('returned:');
-  console.dir(x);
+  debug('returned:');
+  debug("x=%O", x);
 });

@@ -1,17 +1,16 @@
+const debug = require('debug')('42520339:model');
 var bookshelf = require('./bookshelf');
 
-console.log('god.model');
-console.dir(bookshelf.knex);
-console.log('--------------');
+debug("bookshelf.knex=%O", bookshelf.knex);
 
 var God = bookshelf.Model.extend({
     tableName: 'gods'
 });
 
-God.fetchAll().then((x) => {
-    console.log('x=');
-    console.dir(x)
-    console.log('--------------');
+new God().fetchAll().then(function fetchAllThen(x) {
+    debug('x=');
+    debug("x=%O", x)
+    debug('--------------');
 });
 
 module.exports = bookshelf.model('God', God);
