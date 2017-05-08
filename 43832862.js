@@ -32,9 +32,9 @@ Promise.all([
 const Identity = bookshelf.model('Identity', {
   tableName: 'identity',
 
-  user() {
-    return this.belongsToMany('User');
-  }
+    user() {
+      return this.belongsToMany('User');
+    }
 });
 
 const User = bookshelf.model('User', {
@@ -54,26 +54,18 @@ const User = bookshelf.model('User', {
     });
   },
 
-  identities() {
-    return this.belongsToMany('Identity');
-  }
+    identities() {
+      return this.belongsToMany('Identity');
+    }
 });
 //-----------------------------------------------------------
 function create(username, email, password) {
     return bookshelf.transaction((t) => {
         return new User({ username, password } )
           .save(null, { transacting: t })
-          .tap(console.log('----------- user'))
-          .tap(user => console.dir(user))
-          .tap(console.log('----------- user.identities()'))
-          .tap(user => console.dir(user.identities()))
-          .tap(console.log('-----------'))
           .then(user => new Identity({ type: 'email', value: email })
             .save(null, { transacting: t })
-            .tap(console.log('----------- identity'))
-            .tap(identity => console.dir(identity))
-            .tap(console.log('-----------'))
-            .then(identity => new User({id: user.id}).identities()
+            .then(identity => user.identities()
               .attach(identity.id, { transacting: t })))
           .then(() => console.log('created'));
       })
