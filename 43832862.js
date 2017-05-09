@@ -24,6 +24,7 @@ Promise.all([
   knex.schema.createTable('identity_user', table => {
     table.integer('user_id').references('user.id');
     table.integer('identity_id').references('identity.id');
+    table.string('random_data');
     table.unique(['user_id', 'identity_id']);
   })
 ]);
@@ -55,22 +56,23 @@ const User = bookshelf.model('User', {
   },
 
     identities() {
-      return this.belongsToMany('Identity');
+      return this.belongsToMany('Identity')
+        .withPivot(['random_data']);
     }
 });
 //-----------------------------------------------------------
 function create(username, email, password) {
-    return bookshelf.transaction((t) => {
-        return new User({ username, password } )
-          .save(null, { transacting: t })
-          .then(user => new Identity({ type: 'email', value: email })
-            .save(null, { transacting: t })
-            .then(identity => user.identities()
-              .attach(identity.id, { transacting: t })))
-          .then(() => console.log('created'));
-      })
-      .catch(err => {
-        console.log('errr');
-        console.dir(err);
-      });
+  return bookshelf.transaction((t) => {
+      return new User({ username, password } )
+        .save(null, { transacting: t })
+        .then(user => new Identity({ type: 'email', value: email })
+          .save(null, { transacting: t }))
+        .then(identity => user.identities()
+          .attach(identity.id, { transacting: t }));
+    })
+    .then(() => console.log('created'))
+    .catch(err => {
+      console.log('errr');
+      console.dir(err);
+    });
 }
